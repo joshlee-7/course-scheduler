@@ -6,7 +6,7 @@ const Coursecard = ({ course }) => {
       <h5 className="card-title">{course.term} CS {course.number}</h5>
       <p className="card-text">{course.title}</p>
       </div>
-      <div className="align-bottom p-1">
+      <div className="align-bottom text-center" >
         <hr/>
       <p className="card-text ">{course.meets}</p>
       </div>
