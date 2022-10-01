@@ -1,14 +1,17 @@
 import Coursecard from "./Coursecard";
 import './Courselist.css'
 
-const Courselist = ({ courses }) => {
+const CourseList = ({ courses, term }) => {
   return (
     <div className="course-list">
-      {Object.entries(courses).map(([id, course]) => (
-        <Coursecard key={id} course={course} />
-      ))}
+      {Object.entries(courses).map(([id, course]) => {
+        console.log(course);
+        return course.term === term && <Coursecard key={id} course={course} />
+
+})}
+      
     </div>
   );
 };
 
-export default Courselist;
+export default CourseList;
