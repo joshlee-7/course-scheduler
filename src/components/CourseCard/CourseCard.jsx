@@ -1,12 +1,10 @@
 import "./CourseCard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const CourseCard = ({ id, course, selected, toggleSelected }) => {
+const CourseCard = ({ id, course, isSelected, toggleSelected }) => {
   return (
     <div
-      className={`card m-1 p-2 ${
-        selected.includes(course) ? "selected text-white" : ""
-      }`}
+      className={`card m-1 p-2 ${isSelected ? "selected text-white" : ""}`}
       onClick={() => toggleSelected(course)}
     >
       <div className="card-body">

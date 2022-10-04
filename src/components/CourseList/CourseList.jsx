@@ -10,7 +10,7 @@ const CourseList = ({ courses, term, selected, toggleSelected }) => {
             <CourseCard
               key={id}
               course={course}
-              selected={selected}
+              isSelected={selected.includes(course)}
               toggleSelected={toggleSelected}
             />
           )

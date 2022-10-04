@@ -1,5 +1,7 @@
 import { useState } from "react";
 import Courselist from "./CourseList/CourseList";
+import MyCourseButton from "./MyCoursesButton";
+import Modal from "./Modal/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
 
@@ -37,6 +39,9 @@ const TermSelector = ({ selection, setSelection }) => (
 const CoursePage = ({ courses }) => {
   const [selection, setSelection] = useState(terms[0]);
   const [selected, setSelected] = useState([]);
+  const [open, setOpen] = useState(false);
+  const openModal = () => setOpen(true);
+  const closeModal = () => setOpen(false);
 
   const toggleSelected = (item) =>
     setSelected(
@@ -47,7 +52,17 @@ const CoursePage = ({ courses }) => {
   console.log(selected);
   return (
     <div>
-      <TermSelector selection={selection} setSelection={setSelection} />
+      <div className="d-flex bd-highlight mb-3">
+        <div className="me-auto p-2 bd-highlight">
+          <TermSelector selection={selection} setSelection={setSelection} />
+        </div>
+        <div className=" bd-highlight">
+          <MyCourseButton openModal={openModal} />
+        </div>
+        <div>
+          <Modal selectedClasses={selected} open={open} close={closeModal} />
+        </div>
+      </div>
       <Courselist
         courses={courses}
         term={selection}
