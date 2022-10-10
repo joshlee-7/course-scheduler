@@ -22,7 +22,7 @@ const Modal = ({ selectedClasses, open, close }) => (
             <h2>No courses selected. Click on classes you want to add.</h2>
           ) : (
             Object.entries(selectedClasses).map(([id, course]) => {
-              return <CourseCard key={id} course={course} />;
+              return <CourseCard id={id} key={id} course={course} />;
             })
           )}
         </div>

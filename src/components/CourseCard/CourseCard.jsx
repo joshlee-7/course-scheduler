@@ -5,7 +5,7 @@ const CourseCard = ({ id, course, isSelected, toggleSelected }) => {
   return (
     <div
       className={`card m-1 p-2 ${isSelected ? "selected text-white" : ""}`}
-      onClick={() => toggleSelected(course)}
+      onClick={() => toggleSelected(id)}
     >
       <div className="card-body">
         <h5 className="card-title">

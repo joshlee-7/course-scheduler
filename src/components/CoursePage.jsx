@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Courselist from "./CourseList/CourseList";
+import CourseList from "./CourseList/CourseList";
 import MyCourseButton from "./MyCoursesButton";
 import Modal from "./Modal/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -63,7 +63,7 @@ const CoursePage = ({ courses }) => {
           <Modal selectedClasses={selected} open={open} close={closeModal} />
         </div>
       </div>
-      <Courselist
+      <CourseList
         courses={courses}
         term={selection}
         selected={selected}

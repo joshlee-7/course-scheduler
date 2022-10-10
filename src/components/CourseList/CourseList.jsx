@@ -9,8 +9,9 @@ const CourseList = ({ courses, term, selected, toggleSelected }) => {
           course.term === term && (
             <CourseCard
               key={id}
+              id={id}
               course={course}
-              isSelected={selected.includes(course)}
+              isSelected={selected.includes(id)}
               toggleSelected={toggleSelected}
             />
           )

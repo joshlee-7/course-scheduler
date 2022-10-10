@@ -4,7 +4,7 @@ import "bootstrap-icons/font/bootstrap-icons.css";
 const MyCourseButton = ({ openModal }) => {
   return (
     <div>
-      <button type="button" class="btn btn-primary" onClick={openModal}>
+      <button type="button" className="btn btn-primary" onClick={openModal}>
         My Courses
       </button>
     </div>
