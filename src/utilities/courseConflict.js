@@ -1,4 +1,5 @@
 const parseMeetingTimes = (info) => {
+  console.log(info);
   let [day, time] = info.split(" ");
   day = day.split(/(?=[A-Z])/);
   let [startTime, endTime] = time.split("-");
@@ -27,9 +28,9 @@ const sameTerm = (term1, term2) => {
 };
 
 const isConflict = (course1, course2) => {
-  let [day1, start1, end1] = parseMeetingTimes(course1);
+  let [day1, start1, end1] = parseMeetingTimes(course1.meets);
   let term1 = course1.term;
-  let [day2, start2, end2] = parseMeetingTimes(course2);
+  let [day2, start2, end2] = parseMeetingTimes(course2.meets);
   let term2 = course2.term;
 
   return (
@@ -43,16 +44,30 @@ export const disableCoursesWithConflicts = (
   conflictingCourses,
   newlySelected,
   courses,
-  someCourse
-) => {};
+  selectedCourses
+) => {
+  const newConflicts = [];
+
+  Object.entries(courses).map(([id, course]) => {
+    if (
+      isConflict(course, courses[newlySelected]) &&
+      !conflictingCourses.includes(id) &&
+      !selectedCourses.includes(id) &&
+      id !== newlySelected
+    ) {
+      newConflicts.push(id);
+    }
+  });
+  return newConflicts.concat(conflictingCourses);
+};
 
 export const enableCoursesWithNoConflicts = (
   conflictingCourses,
-  newlySelected,
+  newlyDeleted,
   courses,
   course
 ) => {
-  conflictingCourses.filter((conflict) => {
-    return;
+  return conflictingCourses.filter((conflict) => {
+    return isConflict(courses[conflict], courses[newlyDeleted]);
   });
 };

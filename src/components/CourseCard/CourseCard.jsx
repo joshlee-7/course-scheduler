@@ -1,11 +1,14 @@
 import "./CourseCard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 
-const CourseCard = ({ id, course, isSelected, toggleSelected }) => {
+const CourseCard = ({ id, course, isSelected, toggleSelected, conflicts }) => {
+  console.log(conflicts);
   return (
     <div
-      className={`card m-1 p-2 ${isSelected ? "selected text-white" : ""}`}
-      onClick={() => toggleSelected(id)}
+      className={`card m-1 p-2 ${isSelected ? "selected text-white" : ""} ${
+        conflicts.includes(id) ? "p-3 mb-2 bg-danger" : ""
+      }`}
+      onClick={() => !conflicts.includes(id) && toggleSelected(id)}
     >
       <div className="card-body">
         <h5 className="card-title">

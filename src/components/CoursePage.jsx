@@ -4,6 +4,10 @@ import MyCourseButton from "./MyCoursesButton";
 import Modal from "./Modal/Modal";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "bootstrap-icons/font/bootstrap-icons.css";
+import {
+  enableCoursesWithNoConflicts,
+  disableCoursesWithConflicts,
+} from "../utilities/courseConflict";
 
 const terms = ["Fall", "Winter", "Spring"];
 
@@ -40,15 +44,25 @@ const CoursePage = ({ courses }) => {
   const [selection, setSelection] = useState(terms[0]);
   const [selected, setSelected] = useState([]);
   const [open, setOpen] = useState(false);
+  const [conflicts, setConflicts] = useState([]);
   const openModal = () => setOpen(true);
   const closeModal = () => setOpen(false);
 
-  const toggleSelected = (item) =>
-    setSelected(
-      selected.includes(item)
-        ? selected.filter((x) => x !== item)
-        : [...selected, item]
-    );
+  const toggleSelected = (id) => {
+    if (selected.includes(id)) {
+      const latest = selected.filter((x) => x !== id);
+      console.log(latest);
+      setConflicts(
+        enableCoursesWithNoConflicts(conflicts, latest, courses, id)
+      );
+      setSelected(latest);
+    } else {
+      setConflicts(
+        disableCoursesWithConflicts(conflicts, id, courses, selected)
+      );
+      setSelected([...selected, id]);
+    }
+  };
   console.log(selected);
   return (
     <div>
@@ -60,7 +74,12 @@ const CoursePage = ({ courses }) => {
           <MyCourseButton openModal={openModal} />
         </div>
         <div>
-          <Modal selectedClasses={selected} open={open} close={closeModal} />
+          <Modal
+            selectedClasses={selected}
+            open={open}
+            close={closeModal}
+            courses={courses}
+          />
         </div>
       </div>
       <CourseList
@@ -68,6 +87,7 @@ const CoursePage = ({ courses }) => {
         term={selection}
         selected={selected}
         toggleSelected={toggleSelected}
+        conflicts={conflicts}
       />
     </div>
   );
