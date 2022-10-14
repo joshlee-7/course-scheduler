@@ -68,6 +68,6 @@ export const enableCoursesWithNoConflicts = (
   id
 ) => {
   return conflictingCourses.filter((conflict) => {
-    return isConflict(courses[conflict], courses[id]);
+    return !isConflict(courses[conflict], courses[id]);
   });
 };
