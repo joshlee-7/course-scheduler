@@ -1,5 +1,6 @@
 import "./CourseCard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
+import { Link } from "react-router-dom";
 
 const CourseCard = ({ id, course, isSelected, toggleSelected, conflicts }) => {
   console.log(conflicts);
@@ -17,8 +18,9 @@ const CourseCard = ({ id, course, isSelected, toggleSelected, conflicts }) => {
         <p className="card-text">{course.title}</p>
       </div>
       <div className="align-bottom text-center">
-        <hr />
         <p className="card-text ">{course.meets}</p>
+        <hr />
+        <Link to={`/edit/${id}`}>Edit</Link>
       </div>
     </div>
   );

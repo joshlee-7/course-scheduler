@@ -8,6 +8,7 @@ import {
   enableCoursesWithNoConflicts,
   disableCoursesWithConflicts,
 } from "../utilities/courseConflict";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 const terms = ["Fall", "Winter", "Spring"];
 

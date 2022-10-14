@@ -8,6 +8,8 @@ import CourseList from "./components/CourseList/CourseList";
 import CoursePage from "./components/CoursePage";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useJsonQuery } from "./utilities/fetch";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
+import CourseEditForm from "./components/CourseEditForm";
 
 const Main = () => {
   const [data, isLoading, error] = useJsonQuery(
@@ -20,7 +22,12 @@ const Main = () => {
   return (
     <div>
       <Banner title={data.title} />
-      <CoursePage courses={data.courses} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<CoursePage courses={data.courses} />} />
+          <Route path="/edit/:id" element={<CourseEditForm />} />
+        </Routes>
+      </BrowserRouter>
     </div>
   );
 };
