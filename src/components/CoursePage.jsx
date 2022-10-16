@@ -9,6 +9,8 @@ import {
   disableCoursesWithConflicts,
 } from "../utilities/courseConflict";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { NavLink } from "react-router-dom";
+import { signInWithGoogle, signOut, useAuthState } from "../utilities/firebase";
 
 const terms = ["Fall", "Winter", "Spring"];
 
@@ -41,6 +43,25 @@ const TermSelector = ({ selection, setSelection }) => (
   </div>
 );
 
+const SignInButton = () => (
+  <button className="ms-auto btn btn-dark" onClick={signInWithGoogle}>
+    Sign in
+  </button>
+);
+
+const SignOutButton = () => (
+  <button className="ms-auto btn btn-dark" onClick={signOut}>
+    Sign out
+  </button>
+);
+
+const AuthButton = () => {
+  const [user] = useAuthState();
+  return user ? <SignOutButton /> : <SignInButton />;
+};
+
+const activation = ({ isActive }) => (isActive ? "active" : "inactive");
+
 const CoursePage = ({ courses }) => {
   const [selection, setSelection] = useState(terms[0]);
   const [selected, setSelected] = useState([]);
@@ -71,9 +92,10 @@ const CoursePage = ({ courses }) => {
         <div className="me-auto p-2 bd-highlight">
           <TermSelector selection={selection} setSelection={setSelection} />
         </div>
-        <div className=" bd-highlight">
-          <MyCourseButton openModal={openModal} />
-        </div>
+
+        <MyCourseButton openModal={openModal} />
+
+        <AuthButton />
         <div>
           <Modal
             selectedClasses={selected}

@@ -1,8 +1,10 @@
 import "./CourseCard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
+import { useAuthState } from "../../utilities/firebase";
 
 const CourseCard = ({ id, course, isSelected, toggleSelected, conflicts }) => {
+  const [user] = useAuthState();
   return (
     <div
       className={`card m-1 p-2 ${isSelected ? "selected text-white" : ""} ${
@@ -19,7 +21,7 @@ const CourseCard = ({ id, course, isSelected, toggleSelected, conflicts }) => {
       <div className="align-bottom text-center">
         <p className="card-text ">{course.meets}</p>
         <hr />
-        <Link to={`/edit/${id}`}>Edit</Link>
+        {user ? <Link to={`/edit/${id}`}>Edit</Link> : ""}
       </div>
     </div>
   );
