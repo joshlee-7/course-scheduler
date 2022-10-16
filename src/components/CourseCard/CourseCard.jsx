@@ -3,7 +3,6 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 
 const CourseCard = ({ id, course, isSelected, toggleSelected, conflicts }) => {
-  console.log(conflicts);
   return (
     <div
       className={`card m-1 p-2 ${isSelected ? "selected text-white" : ""} ${

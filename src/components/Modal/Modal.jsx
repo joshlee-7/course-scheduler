@@ -4,7 +4,6 @@ import ModalCourseInfo from "../ModalCourseInfo";
 
 const Modal = ({ selectedClasses, open, close, courses }) => {
   console.log(selectedClasses);
-  console.log(courses["F111"]);
   return (
     <div
       className={`modal ${open ? "modal-show" : ""}`}
