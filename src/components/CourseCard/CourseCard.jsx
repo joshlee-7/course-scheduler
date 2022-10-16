@@ -2,9 +2,15 @@ import "./CourseCard.css";
 import "bootstrap/dist/css/bootstrap.min.css";
 import { Link } from "react-router-dom";
 import { useAuthState } from "../../utilities/firebase";
+import { useProfile } from "../../utilities/profile";
 
 const CourseCard = ({ id, course, isSelected, toggleSelected, conflicts }) => {
   const [user] = useAuthState();
+  const [profile, profileLoading, profileError] = useProfile();
+
+  if (profileError) return <h1>Error loading profile: {`${profileError}`}</h1>;
+  if (profileLoading) return <h1>Loading user profile</h1>;
+  if (!profile) return <h1>No profile data</h1>;
   return (
     <div
       className={`card m-1 p-2 ${isSelected ? "selected text-white" : ""} ${
@@ -21,7 +27,7 @@ const CourseCard = ({ id, course, isSelected, toggleSelected, conflicts }) => {
       <div className="align-bottom text-center">
         <p className="card-text ">{course.meets}</p>
         <hr />
-        {user ? <Link to={`/edit/${id}`}>Edit</Link> : ""}
+        {profile?.isAdmin && <Link to={`/edit/${id}`}>Edit</Link>}
       </div>
     </div>
   );

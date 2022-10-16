@@ -43,7 +43,7 @@ const ButtonBar = ({ message, disabled }) => {
         className="btn btn-outline-dark me-2"
         onClick={() => navigate(-1)}
       >
-        Cancel
+        Return Home
       </button>
       <button
         type="submit"

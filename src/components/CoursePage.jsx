@@ -11,6 +11,7 @@ import {
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { NavLink } from "react-router-dom";
 import { signInWithGoogle, signOut, useAuthState } from "../utilities/firebase";
+import { useProfile } from "../utilities/profile";
 
 const terms = ["Fall", "Winter", "Spring"];
 
@@ -86,16 +87,27 @@ const CoursePage = ({ courses }) => {
     }
   };
   console.log(selected);
+
+  const [profile, profileLoading, profileError] = useProfile();
+  if (profileError) return <h1>Error loading profile: {`${profileError}`}</h1>;
+  if (profileLoading) return <h1>Loading user profile</h1>;
+  if (!profile) return <h1>No profile data</h1>;
+  console.log(profile);
+  const firstLastName = (profile) =>
+    profile ? `${profile.displayName}` : "Unknown user";
+
   return (
     <div>
       <div className="d-flex bd-highlight mb-3">
         <div className="me-auto p-2 bd-highlight">
           <TermSelector selection={selection} setSelection={setSelection} />
         </div>
-
         <MyCourseButton openModal={openModal} />
+        <div className="p-5">
+          {profile ? `Hi ${firstLastName(profile.user)}` : ""}
+          <AuthButton />
+        </div>
 
-        <AuthButton />
         <div>
           <Modal
             selectedClasses={selected}
