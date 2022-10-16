@@ -28,7 +28,7 @@ const Main = () => {
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<CoursePage courses={data.courses} />} />
-          <Route path="/edit/:id" element={<CourseEditForm />} />
+          <Route path="/edit/:id" element={<CourseEditForm data={data} />} />
         </Routes>
       </BrowserRouter>
     </div>
