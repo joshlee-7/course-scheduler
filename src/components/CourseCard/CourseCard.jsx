@@ -13,6 +13,7 @@ const CourseCard = ({ id, course, isSelected, toggleSelected, conflicts }) => {
   if (!profile) return <h1>No profile data</h1>;
   return (
     <div
+      data-cy="course"
       className={`card m-1 p-2 ${isSelected ? "selected text-white" : ""} ${
         conflicts.includes(id) ? "p-3 mb-2 bg-danger" : ""
       }`}
