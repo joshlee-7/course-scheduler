@@ -2,8 +2,8 @@
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
 import { useCallback, useEffect, useState } from 'react';
-import { getDatabase, onValue, ref, update } from 'firebase/database';
-import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut } from 'firebase/auth';
+import { getDatabase, onValue, ref, update, connectDatabaseEmulator } from 'firebase/database';
+import { getAuth, GoogleAuthProvider, onAuthStateChanged, signInWithPopup, signOut, connectAuthEmulator, signInWithCredential } from 'firebase/auth';
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -23,7 +23,17 @@ const firebaseConfig = {
 
 // Initialize Firebase
 const firebase = initializeApp(firebaseConfig);
+const auth = getAuth(firebase);
 const database = getDatabase(firebase);
+
+if (import.meta.env.VITE_EMULATE) {
+    connectAuthEmulator(auth, "http://127.0.0.1:9099");
+    connectDatabaseEmulator(database, "127.0.0.1", 9000);
+
+    signInWithCredential(auth, GoogleAuthProvider.credential(
+        '{"sub": "Abs3VtteAXJCQrLiEIXqnTp7DJxs", "email": "tester@gmail.com", "displayName":"Test User", "email_verified": true}'
+    ));
+}
 
 export const useDbData = (path) => {
     const [data, setData] = useState();
